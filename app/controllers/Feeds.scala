@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc.{Action, Controller}
 import play.api.libs.ws.WS
 import concurrent.ExecutionContext.Implicits.global
+
 object Feeds extends Controller {
 
   // TODO - Video feed.
