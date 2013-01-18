@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
 }
-* {
+footer *, footer, header *, header {
     margin: 0;
     padding: 0;
     border: 0;
@@ -95,6 +95,19 @@ article section {
     height: 120px;
     overflow: hidden;
 }
+
+article section.expand {
+  overflow: auto;
+  height: 100%;
+}
+
+article section.expand:before {
+  background: none;
+}
+article section.expand:after {
+  content: "Shrink";
+}
+
 article section:before {
     content: " ";
     display: block;

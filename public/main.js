@@ -94,9 +94,22 @@
             var popup = window.open(null, 'popupScalawags', 'height=240, width=580, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');
             var content = el.clone();
             content.find("section").remove()
-            popup.document.write('<!DOCTYPE html><html><head><link rel="stylesheet" href="http://localhost:8090/main.css"><title>'+o.title+'</title></head><body><article class="popup">'+content.html()+'</article></body></html>');
+            popup.document.write('<!DOCTYPE html><html><head><link rel="stylesheet" href="/main.css"><title>'+o.title+'</title></head><body><article class="popup">'+content.html()+'</article></body></html>');
             return false;
         })
+    }
+
+    function bindReadmore(el, o) {
+      var section = $("section", el)
+      section.click(function(e) {
+        e.preventDefault();
+        if(section.hasClass('expand')) {
+          section.removeClass('expand');
+        } else {
+          section.addClass('expand');
+        }
+        return false;
+      });
     }
 
     function template(o){
@@ -112,13 +125,14 @@
 
         bindAudio(el);
         bindPopup(el, o);
+        bindReadmore(el, o);
 
         return el;
     }
 
     readLibsynFeed("/feeds/audio", function(data) {
-      // TODO - Paginate...
-      $.each(data, function(i,o) {
+      // TODO - Paginate..., for now we just show 10, since the auto-downloading of mp3s can suck up network...
+      $.each(data.slice(0,5), function(i,o) {
         template(o).appendTo(list);
       });
     });
