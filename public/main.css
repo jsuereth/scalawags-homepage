@@ -209,3 +209,13 @@ article section p {
     background-position: -120px 0;
 }
 
+#videoCarousel {
+  width: 300px;
+  height: 190px;
+}
+
+#videoCarousel img {
+  width: 300px;
+  height: 189px;
+}
+

@@ -4,35 +4,6 @@
         list = $("#list");
 
 
-    // Helper to display months
-    var monthNames = [ "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December" ];
-    
-    // Reads a libsyn audio feed and returns parsed info.
-    // args:  url -  The url to read
-    //        handler -  A function accepting the parsed JSON of the RSS feed.
-    function readLibsynFeed(url, handler) {
-      $.get(url, function(data) {                           
-        var xmlResults = $.makeArray($(data).find('item'));
-        var results = $.map(xmlResults, function(item, idx) {  
-            var $item = $(item); 
-            var date = new Date($item.find('pubDate').text());
-            var month = monthNames[date.getMonth()];
-            var result = {
-              id: idx,
-              title: $item.find('title').text(),
-              link:  $item.find('link').text(),
-              text: $item.find('description').text(),
-              date: month,
-              audio: $item.find('enclosure').attr('url'),
-            }; 
-            return result;
-        });  
-        handler(results);
-      });  
-    }
-
-
     function bindAudio(el){
         var audio  = $('audio', el)[0],
             button = $('.play', el),
@@ -130,7 +101,7 @@
         return el;
     }
 
-    readLibsynFeed("/feeds/audio", function(data) {
+    feeds.readLibsyn("/feeds/audio", function(data) {
       // TODO - Paginate..., for now we just show 10, since the auto-downloading of mp3s can suck up network...
       $.each(data.slice(0,5), function(i,o) {
         template(o).appendTo(list);

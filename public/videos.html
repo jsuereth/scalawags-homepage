@@ -6,6 +6,7 @@
         <title>The Scalawags - Monthly podcasts about Scala language.</title>
         <meta name="description" content="Monthly podcasts about Scala language">
         <meta name="viewport" content="width=device-width">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
@@ -20,36 +21,34 @@
         </header>
 
         <section id="list">
+          <article data-bind="with: currentVideo">
+            <iframe data-bind="attr: { src: embedUrl, title: title }" width="480" height="390" frameborder="0"></iframe>
+          </article>
+          <div id="videoCarousel" class="carousel slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner" data-bind="foreach: { data: videos, afterRender: setActiveCarousel }">
+              <div class="item" data-bind="click: $parent.currentVideo">
+                <img data-bind="attr: { src: thumbnail }, click: $parent.currentVideo"/>
+                <div class="carousel-caption">
+                  <p data-bind="text: title"></p>
+                </div>
+              </div>
+            </div> 
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#videoCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#videoCarousel" data-slide="next">&rsaquo;</a>
+          </div>
         </section>
 
         <footer>
             <p>The Scalawags, 2013</p>
         </footer>
 
-        <div id="templates" style="display:none">
-            <article>
-                <h1><a></a></h1>
-                <time></time>
-                <div class="player">
-                    <audio></audio>
-                    <a class="play"></a>
-                    <span class="progress">
-                        <span class="shape"></span>
-                        <span class="loaded"></span>
-                        <span class="played"></span>
-                        <p class="time"></p>
-                    </span>
-                    <a class="download"></a>
-                    <a class="popup"></a>
-                </div>
-                <section></section>
-            </article>
-        </div>
-
         <script src="jquery.min.js"></script>
         <script src="knockout-2.2.1.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="feeds.js"></script>
-        <script src="main.js"></script>
+        <script src="videos.js"></script>
     </body>
 </html>
 
